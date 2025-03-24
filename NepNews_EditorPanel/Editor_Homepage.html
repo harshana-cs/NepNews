@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Panel</title>
+
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="Editor_Homepage.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="logo">
+            <h1 class="logo-text">NEPNEWS</h1>
+        </div>
+        <div class="editor">
+            <h2>Editor Panel</h2>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Left Side: Search & Recent Articles -->
+        <div class="container1">
+            <div class="search">
+                <div class="search-box">
+                    <span class="material-icons">search</span> 
+                    <input type="text" placeholder="Search For Articles">
+                </div>
+
+                <h2>Recent Articles</h2>
+                <li><strong>Olivia Bennet</strong> - Anautho anautho lagcha jindagi yo timi bina<br><span class="status pending">Status: Pending</span></li>
+                  <li><strong>Amelia Clarke</strong> - Random news idk what to write<br><span class="status rejected">Status: Rejected</span></li>
+                   <li><strong>Jacob Reynolds</strong> - Wallu dun dun dunail wapabul tob tobali<br><span class="status approved">Status: Approved</span></li>
+                   <li><strong>Ethan Carter</strong> - Angaala sambhala hamra sabai samjhna<br><span class="status approved">Status: Approved</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: Review Articles Section -->
+        <div class="container2">
+            <main class="main-content">
+                <h2>Review News Articles</h2>
+                <h3>Title: Anautho anautho lagcha jindagi yo timi bina</h3>
+                <div  class="description">
+                <p><strong>Author:</strong> Olivia Bennet</p>
+                <p><strong>Status:</strong> <span class="status pending">Pending</span></p></div>
+                <div class="content-container">
+                    <div class="topic">
+                        <p><strong>News Content:</strong></p>
+                    </div>
+                    <div class="uploaded_button">
+                        <button class="upload_button">View Uploaded Pdf</button>
+                    </div>
+                </div>
+                <div class="details_paragraph">    
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p></div>
+                <h4>Write a review to the Author</h4>
+                <textarea rows="4" placeholder="Type your review here..."></textarea>
+
+                <div class="button-container">
+                    <button class="reject-button">Reject</button>
+                    <button class="resend-button">Resend for Correction</button>
+                    <button class="approve-button">Approve</button>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+</body>
+</html>
