@@ -4,75 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor Panel</title>
-
-    <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <!-- External CSS -->
     <link rel="stylesheet" href="Editor_Homepage.css">
 </head>
 <body>
 
-    <!-- Header Section -->
-    <div class="header">
+    <header class="header">
         <div class="logo">
             <h1 class="logo-text">NEPNEWS</h1>
         </div>
-        <div class="editor">
-            <h2>Editor Panel</h2>
+        <h2 class="editor-title">Editor Panel</h2>
+        <div class="user-icon">
+            <span class="material-icons">person</span>
         </div>
+    </header>
+
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <div class="search-bar">
+                <span class="material-icons">search</span> 
+                <input type="text" placeholder="Search For Articles">
+            </div>
+
+            <h3>Recent Articles</h3>
+            <ul class="article-list">
+                <li class="pending">Olivia Bennet<br><span>Anautho anautho lagcha jindagi yo timi bina</span><br>Status: Pending</li>
+                <li class="rejected">Amelia Clarke<br><span>Random news idk what to write</span><br>Status: Rejected <button class="view-btn">View</button></li>
+                <li class="approved">Jacob Reynolds<br><span>Wallu dun dun dunali wapabul tob tobali</span><br>Status: Approved <button class="view-btn">View</button></li>
+            </ul>
+        </aside>
+
+        <section class="editor-section">
+            <h2>Review And Edit News Articles</h2>
+            <p><strong>Title:</strong> Anautho anautho lagcha jindagi yo timi bina</p>
+            <p><strong>Author:</strong> Olivia Bennet</p>
+            <p><strong>Status:</strong> Pending</p>
+
+            <button class="view-images">View Uploaded Images</button>
+            <p class="date">Date: 03/20/2025</p>
+        
+            <div class="editor-toolbar">
+        
+                <select class="font-select">
+                    <option>Normal text</option>
+                    <option>Calibri</option>
+                </select>
+                <button class="font-size">-</button>
+                <button class="font-size">11</button>
+                <button class="font-size">+</button>
+                <button class="text-style">B</button>
+                <button class="text-style">U</button>
+                <button class="text-style">A</button>
+                <button class="insert-link">🔗</button>
+                <button class="insert-image">🖼️</button>
+                <button class="alignment">Align</button>
+            </div>
+            <div class="editor-box">
+                <textarea> Lorem ipsum dolor sit amet, consectetur adipiscing elit...</textarea>
+            </div>
+
+            <div class="button-group">
+                <button id="showDialog" class="reject-btn">Reject</button>
+                <button id ="showResendDialog"class="resend-btn">Resend For Correction</button>
+                <button class="approve-btn">Approve</button>
+            </div>
+        </section>
+
     </div>
-
-    <!-- Main Content -->
-    <div class="content">
-
-        <!-- Left Side: Search & Recent Articles -->
-        <div class="container1">
-            <div class="search">
-                <div class="search-box">
-                    <span class="material-icons">search</span> 
-                    <input type="text" placeholder="Search For Articles">
-                </div>
-
-                <h2>Recent Articles</h2>
-                <li><strong>Olivia Bennet</strong> - Anautho anautho lagcha jindagi yo timi bina<br><span class="status pending">Status: Pending</span></li>
-                  <li><strong>Amelia Clarke</strong> - Random news idk what to write<br><span class="status rejected">Status: Rejected</span></li>
-                   <li><strong>Jacob Reynolds</strong> - Wallu dun dun dunail wapabul tob tobali<br><span class="status approved">Status: Approved</span></li>
-                   <li><strong>Ethan Carter</strong> - Angaala sambhala hamra sabai samjhna<br><span class="status approved">Status: Approved</span></li>
-                </ul>
+    <div id="dialog" class="dialog">
+        <div class="dialog-content">
+            <h2>Alert Dialog Box 2.0</h2>
+            <p>Reject This Article?</p>
+            <div class="dialog-buttons">
+                <button id="cancel-btn">Cancel</button>
+                <button id="reject-confirm" class="reject">Reject</button>
             </div>
         </div>
-
-        <!-- Right Side: Review Articles Section -->
-        <div class="container2">
-            <main class="main-content">
-                <h2>Review News Articles</h2>
-                <h3>Title: Anautho anautho lagcha jindagi yo timi bina</h3>
-                <div  class="description">
-                <p><strong>Author:</strong> Olivia Bennet</p>
-                <p><strong>Status:</strong> <span class="status pending">Pending</span></p></div>
-                <div class="content-container">
-                    <div class="topic">
-                        <p><strong>News Content:</strong></p>
-                    </div>
-                    <div class="uploaded_button">
-                        <button class="upload_button">View Uploaded Pdf</button>
-                    </div>
-                </div>
-                <div class="details_paragraph">    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p></div>
-                <h4>Write a review to the Author</h4>
-                <textarea rows="4" placeholder="Type your review here..."></textarea>
-
-                <div class="button-container">
-                    <button class="reject-button">Reject</button>
-                    <button class="resend-button">Resend for Correction</button>
-                    <button class="approve-button">Approve</button>
-                </div>
-            </main>
-        </div>
-
     </div>
-
+    <div id="resendDialog" class="resend-dialog">
+        <div class="resend-dialog-content">
+            <h2>Add suggestions and corrections</h2>
+            <textarea id="suggestionBox" placeholder="Suggestion to the author"></textarea>
+            <div class="resend-upload-container">
+                <div class="upload-button">
+                    <span>+</span>
+                    <p>Upload PDF</p>
+                </div>
+                <button id="submitResend" class="submit-button">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script src="Editor_Homepage.js"></script>
 </body>
 </html>

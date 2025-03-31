@@ -1,202 +1,413 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    margin: 30px;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
+/* Header */
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    background-color: #222;
+    background-color: #111;
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo-text {
+    background-color: darkred;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.user-icon {
+    cursor: pointer;
+}
+
+/* Layout */
+.main-container {
+    display: flex;
+    margin: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 30%;
+    background: #eaeaea;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 5px;
+}
+
+/* Articles List */
+.article-list {
+    list-style: none;
+    padding: 0;
+}
+
+.article-list li {
+    background: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.pending { border-left: 5px solid orange; }
+.rejected { border-left: 5px solid red; }
+.approved { border-left: 5px solid green; }
+
+.view-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    float: right;
+}
+
+/* Editor Section */
+.editor-section {
+    width: 70%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.editor-section h2 {
+    margin-bottom: 10px;
+}
+
+.view-images {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+}
+
+/* Date */
+.date {
+    font-size: 14px;
+    color: gray;
+    margin-top: 10px;
+}
+
+/* Editor Box */
+.editor-box {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.editor-box textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.reject-btn {
+    background-color: red;
     color: white;
     padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
-.logo{
-    background-color: #9A0000;
+
+.resend-btn {
+    background-color: orange;
     color: white;
-    padding: 10px 15px;
-    font-weight: bold;
-    margin-right: 5px;
-   
-}
-.logo-text{
-    flex-grow: 5; /* Pushes the icon to the far right */
-    font-size: 25px;
-    margin: 5px;
-    font-family: "Rockwell", sans-serif;
-
-}
-.editor{
-    flex: 1;                       /* Allow the editor section to take space */
-    text-align: left; 
-}
-.content {
-    display: flex;
-    height: calc(100vh - 80px); 
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.container1, .container2 {
-    padding: 20px;
-    overflow-y: auto; /* Allow scrolling for long content */
+.approve-btn {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.container1 {
-    width: 32%; 
-    background-color: #f0f0f0; /* Light grey background */
-}
 
-.container2 {
-    width: 70%; /* Responsive width for main content section */
-    background-color: #1F1F1F; /* White background */
-    margin-left:10px;
-    margin-top: 10px;
-
-}
-.search
-{
-    position:relative;
-   
-}
-.search input {
-    width: 90%;
-            padding: 10px 10px 10px 40px;
-            border: 1px solid #ccc;
-            border-radius: 20px; 
-            font-size: 16px;
-            background-color: #1F1F1F;
-}
-.search .material-icons {
-    position: absolute;
-    left: 10px; /* Adjust left position */
-    bottom: 86%; 
-    transform: translateY(-50%);
-    color: gray;
-    pointer-events: none; /* Prevent click on icon */
-    color:#ffffff;
-}
-.details1 {
-    width: 90%; /* Adjust width */
-    height: 95px; /* Adjust height */
-    background: color #d9d9d9;; /* Background color */
-    border-radius: 7px; /* Rounded corners */
-    border: 1px solid #ddd; /* Light border */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-}
-.details1 li{
-    padding-left:5px;
-
-}
-.details2 {
-    width: 90%; /* Adjust width */
-    height: 95px; /* Adjust height */
-    background: color #d9d9d9;; /* Background color */
-    border-radius: 7px; /* Rounded corners */
-    border: 1px solid #ddd; /* Light border */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-}
-.details3 {
-    width: 90%; /* Adjust width */
-    height: 95px; /* Adjust height */
-    background: color #d9d9d9;; /* Background color */
-    border-radius: 7px; /* Rounded corners */
-    border: 1px solid #ddd; /* Light border */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-}
-.details4 {
-    width: 90%; /* Adjust width */
-    height: 95px; /* Adjust height */
-    background: color #d9d9d9;; /* Background color */
-    border-radius: 7px; /* Rounded corners */
-    border: 1px solid #ddd; /* Light border */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-family: Arial, sans-serif;
-}
-.main-content{
-    color:#d9d9d9;
-}
-.main-content h2{
-    font-size: 40px;
-}
-.main-content h3{
-    font-size: 20px;
-}
-.description{
-    font-size: 10px;
-}
-.topic{
-    display:flex;
-}
-.content-container {
-    display: flex;
-    justify-content: space-between; /* Places elements on opposite sides */
-    align-items: center; /* Aligns them vertically */
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.details_paragraph{
-    height:100px;
-    width: 900px;
-    background-color: #fff9f9;
-    color:#000000;
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-textarea{
-    width: 900px;
-    height:100px;
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.confirm-reject {
+    background: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    background-color: #555;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.font-select {
+    margin-right: 10px;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
 }
 
 button {
-    padding: 10px 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
     margin-right: 10px;
     cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background 0.3s;
 }
-.button-container {
+
+button {
+    background-color: #666;
+}
+
+.dialog {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust for the element's size */
+    width: 300px; /* Or whatever width you want */
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;}
+
+.dialog-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+}
+
+.dialog-buttons {
     display: flex;
-    justify-content: center;  /* Centers buttons horizontally */
-    gap: 20px;  /* Space between buttons */
-    padding-top: 10px;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
-.reject-button {
+.reject {
     background-color: red;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #666;
     color: white;
-    padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.dialog {
+    /* Add the styles you have for the original dialog */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-buttons {
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.resend-button {
-    background-color: blue;
+.reject {
+    background-color: #f44336; /* Red */
+    color: #fff;
+}
+
+.approve-btn {
+    background-color: #4285f4; /* Blue */
+    color: #fff;
+}
+/* ... (Your existing CSS) ... */
+
+/* Resend Dialog Styles */
+.resend-dialog {
+    display: none;
+    position: fixed;
+    z-index: 2; /* Higher than the reject dialog */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; /* Adjust width as needed */
+    background-color: #222; /* Dark background */
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.resend-dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.resend-dialog h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#suggestionBox {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 20px;
+    padding: 3px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #CCCCCC;
+    color: white;
+}
+
+.resend-upload-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upload-button {
+    background-color: #555;
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     cursor: pointer;
 }
 
-.approve-button {
-    background-color: green;
+.upload-button span {
+    font-size: 2em;
+}
+
+.upload-button p {
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #4285f4;
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
