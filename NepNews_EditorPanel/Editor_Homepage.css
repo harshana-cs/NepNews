@@ -1,0 +1,202 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    color: white;
+    padding: 10px;
+}
+.logo{
+    background-color: #9A0000;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin-right: 5px;
+   
+}
+.logo-text{
+    flex-grow: 5; /* Pushes the icon to the far right */
+    font-size: 25px;
+    margin: 5px;
+    font-family: "Rockwell", sans-serif;
+
+}
+.editor{
+    flex: 1;                       /* Allow the editor section to take space */
+    text-align: left; 
+}
+.content {
+    display: flex;
+    height: calc(100vh - 80px); 
+}
+
+.container1, .container2 {
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling for long content */
+}
+
+.container1 {
+    width: 32%; 
+    background-color: #f0f0f0; /* Light grey background */
+}
+
+.container2 {
+    width: 70%; /* Responsive width for main content section */
+    background-color: #1F1F1F; /* White background */
+    margin-left:10px;
+    margin-top: 10px;
+
+}
+.search
+{
+    position:relative;
+   
+}
+.search input {
+    width: 90%;
+            padding: 10px 10px 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 20px; 
+            font-size: 16px;
+            background-color: #1F1F1F;
+}
+.search .material-icons {
+    position: absolute;
+    left: 10px; /* Adjust left position */
+    bottom: 86%; 
+    transform: translateY(-50%);
+    color: gray;
+    pointer-events: none; /* Prevent click on icon */
+    color:#ffffff;
+}
+.details1 {
+    width: 90%; /* Adjust width */
+    height: 95px; /* Adjust height */
+    background: color #d9d9d9;; /* Background color */
+    border-radius: 7px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+.details1 li{
+    padding-left:5px;
+
+}
+.details2 {
+    width: 90%; /* Adjust width */
+    height: 95px; /* Adjust height */
+    background: color #d9d9d9;; /* Background color */
+    border-radius: 7px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+.details3 {
+    width: 90%; /* Adjust width */
+    height: 95px; /* Adjust height */
+    background: color #d9d9d9;; /* Background color */
+    border-radius: 7px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+.details4 {
+    width: 90%; /* Adjust width */
+    height: 95px; /* Adjust height */
+    background: color #d9d9d9;; /* Background color */
+    border-radius: 7px; /* Rounded corners */
+    border: 1px solid #ddd; /* Light border */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+.main-content{
+    color:#d9d9d9;
+}
+.main-content h2{
+    font-size: 40px;
+}
+.main-content h3{
+    font-size: 20px;
+}
+.description{
+    font-size: 10px;
+}
+.topic{
+    display:flex;
+}
+.content-container {
+    display: flex;
+    justify-content: space-between; /* Places elements on opposite sides */
+    align-items: center; /* Aligns them vertically */
+    width: 100%;
+}
+
+.details_paragraph{
+    height:100px;
+    width: 900px;
+    background-color: #fff9f9;
+    color:#000000;
+}
+textarea{
+    width: 900px;
+    height:100px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    justify-content: center;  /* Centers buttons horizontally */
+    gap: 20px;  /* Space between buttons */
+    padding-top: 10px;
+}
+
+.reject-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.resend-button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.approve-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
