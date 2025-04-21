@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Editor</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #toolbar {
+            margin-bottom: 10px;
+        }
+
+        #editor-container {
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+
+        #imageGallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 100px;
+            background: #fafafa;
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Article Editor</h2>
+
+        <!-- Editor Toolbar -->
+        <div id="toolbar">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-link"></button>
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-align" value=""></button>
+            <button class="ql-align" value="center"></button>
+            <button class="ql-align" value="right"></button>
+            <button class="ql-align" value="justify"></button>
+        </div>
+
+        <!-- Quill Editor -->
+        <div id="editor-container">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+
+        <!-- Image Gallery (Draggable) -->
+        <h3>Drag & Drop Images into the Article</h3>
+        <div id="imageGallery"></div>
+
+        <button onclick="saveArticle()">Save Article</button>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        // Initialize Quill Editor
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: { toolbar: '#toolbar' }
+        });
+
+        // Function to Save Article
+        function saveArticle() {
+            let content = quill.root.innerHTML;
+            alert("Article Saved: " + content);
+            window.location.href = "editor-panel.html";
+        }
+
+        // Fetch Uploaded Images from Backend (Simulated Data)
+        let uploadedImages = [
+            "/uploads/image1.jpg",
+            "/uploads/image2.jpg",
+            "/uploads/image3.jpg"
+        ];
+
+        let imageGallery = document.getElementById("imageGallery");
+
+        // Display Images in Gallery
+        uploadedImages.forEach(imageUrl => {
+            let img = document.createElement("img");
+            img.src = imageUrl;
+            img.classList.add("image-preview");
+            img.setAttribute("draggable", "true");
+
+            // Drag Start Event
+            img.addEventListener("dragstart", function(event) {
+                event.dataTransfer.setData("imageUrl", imageUrl);
+            });
+
+            imageGallery.appendChild(img);
+        });
+
+        // Allow Drop in Quill Editor
+        let editorContainer = document.querySelector("#editor-container .ql-editor");
+
+        editorContainer.addEventListener("dragover", function(event) {
+            event.preventDefault(); // Allow Drop
+        });
+
+        editorContainer.addEventListener("drop", function(event) {
+            event.preventDefault();
+            let imageUrl = event.dataTransfer.getData("imageUrl");
+
+            if (imageUrl) {
+                let range = quill.getSelection();
+                if (range) {
+                    quill.insertEmbed(range.index, "image", imageUrl);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
