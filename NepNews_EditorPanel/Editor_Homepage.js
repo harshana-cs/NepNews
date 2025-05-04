@@ -1,9 +1,13 @@
-document.addEventListener('DOMContentLoaded', function () {
+
     // Reject Dialog
+
+document.addEventListener('DOMContentLoaded', function() {
+
     const showDialogButton = document.getElementById('showDialog');
     const dialog = document.getElementById('dialog');
     const cancelButton = document.getElementById('cancel-btn');
     const rejectConfirmButton = document.getElementById('reject-confirm');
+
 
     if (showDialogButton) {
         showDialogButton.addEventListener('click', function () {
@@ -25,6 +29,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Resend Dialog
+
+    showDialogButton.addEventListener('click', function() {
+        dialog.style.display = 'block';
+    });
+
+    cancelButton.addEventListener('click', function() {
+        dialog.style.display = 'none';
+    });
+
+    rejectConfirmButton.addEventListener('click', function() {
+        alert('Article rejected!'); // Replace with your desired action
+        dialog.style.display = 'none';
+    }); 
     const showResendDialogButton = document.getElementById('showResendDialog');
     const resendDialog = document.getElementById('resendDialog');
     const submitResendButton = document.getElementById('submitResend');
@@ -67,4 +84,15 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = "Artical_editor.html";
         });
     }
+
+    showResendDialogButton.addEventListener('click', function() {
+        resendDialog.style.display = 'block';
+    });
+
+    submitResendButton.addEventListener('click', function() {
+        // Handle submission logic here
+        alert('Resend submitted!'); // Replace with your actual submission logic
+        resendDialog.style.display = 'none';
+    });
+
 });
