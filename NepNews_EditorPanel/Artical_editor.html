@@ -3,140 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Editor</title>
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <title>Article Editor with Image Resize</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
         }
-
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-
-        #toolbar {
-            margin-bottom: 10px;
-        }
-
-        #editor-container {
-            height: 300px;
+        .editor-container {
             border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
         }
-
+        .ck-editor__editable_inline {
+            min-height: 500px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
         #imageGallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
             margin-top: 20px;
-            padding: 10px;
+            padding: 15px;
             border: 1px solid #ddd;
-            min-height: 100px;
+            min-height: 120px;
             background: #fafafa;
+            border-radius: 5px;
         }
-
         .image-preview {
             width: 100px;
             height: 100px;
             object-fit: cover;
             cursor: grab;
+            border-radius: 4px;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-preview:hover {
+            transform: scale(1.05);
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #2196F3;
+        }
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .upload-btn-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h2>Article Editor</h2>
-
-        <!-- Editor Toolbar -->
-        <div id="toolbar">
-            <button class="ql-bold"></button>
-            <button class="ql-italic"></button>
-            <button class="ql-underline"></button>
-            <button class="ql-link"></button>
-            <button class="ql-list" value="ordered"></button>
-            <button class="ql-list" value="bullet"></button>
-            <button class="ql-align" value=""></button>
-            <button class="ql-align" value="center"></button>
-            <button class="ql-align" value="right"></button>
-            <button class="ql-align" value="justify"></button>
-        </div>
-
-        <!-- Quill Editor -->
-        <div id="editor-container">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
-
-        <!-- Image Gallery (Draggable) -->
-        <h3>Drag & Drop Images into the Article</h3>
-        <div id="imageGallery"></div>
-
-        <button onclick="saveArticle()">Save Article</button>
+<div class="container">
+    <h2>Advanced Article Editor with Image Resize</h2>
+    <div class="editor-container">
+        <div id="editor"></div>
     </div>
+    <h3>Drag & Drop Images into the Article</h3>
+    <div id="imageGallery"></div>
+    <div class="image-upload">
+        <h3>Upload New Images</h3>
+        <div class="upload-btn-wrapper">
+            <button class="btn">Select Images</button>
+            <input type="file" id="imageUpload" accept="image/*" multiple />
+        </div>
+        <span id="uploadStatus"></span>
+    </div>
+    <div class="button-container">
+        <button onclick="saveArticle()">Save Article</button>
+        <button onclick="previewArticle()" class="btn">Preview</button>
+    </div>
+</div>
+<div id="previewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000;">
+    <div style="margin: 5% auto; width: 80%; background: white; padding: 20px; border-radius: 10px; max-width: 1000px;">
+        <span style="float: right; font-size: 24px; cursor: pointer;" onclick="closePreview()">&times;</span>
+        <h2>Article Preview</h2>
+        <div id="previewContent" style="margin-top: 20px; max-height: 70vh; overflow-y: auto; padding: 15px; border: 1px solid #ddd; border-radius: 5px;"></div>
+    </div>
+</div>
 
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script>
-        // Initialize Quill Editor
-        var quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: { toolbar: '#toolbar' }
-        });
+<!-- Load full CKEditor build with image resize -->
+<script src="https://cdn.jsdelivr.net/npm/ckeditor5-build-classic-with-image-resize@12.4.0/build/ckeditor.js"></script>
 
-        // Function to Save Article
-        function saveArticle() {
-            let content = quill.root.innerHTML;
-            alert("Article Saved: " + content);
-            window.location.href = "editor-panel.html";
-        }
 
-        // Fetch Uploaded Images from Backend (Simulated Data)
-        let uploadedImages = [
-            "/uploads/image1.jpg",
-            "/uploads/image2.jpg",
-            "/uploads/image3.jpg"
-        ];
-
-        let imageGallery = document.getElementById("imageGallery");
-
-        // Display Images in Gallery
-        uploadedImages.forEach(imageUrl => {
-            let img = document.createElement("img");
-            img.src = imageUrl;
-            img.classList.add("image-preview");
-            img.setAttribute("draggable", "true");
-
-            // Drag Start Event
-            img.addEventListener("dragstart", function(event) {
-                event.dataTransfer.setData("imageUrl", imageUrl);
-            });
-
-            imageGallery.appendChild(img);
-        });
-
-        // Allow Drop in Quill Editor
-        let editorContainer = document.querySelector("#editor-container .ql-editor");
-
-        editorContainer.addEventListener("dragover", function(event) {
-            event.preventDefault(); // Allow Drop
-        });
-
-        editorContainer.addEventListener("drop", function(event) {
-            event.preventDefault();
-            let imageUrl = event.dataTransfer.getData("imageUrl");
-
-            if (imageUrl) {
-                let range = quill.getSelection();
-                if (range) {
-                    quill.insertEmbed(range.index, "image", imageUrl);
+<script>
+    let editorInstance;
+    ClassicEditor.create(document.querySelector('#editor'), {
+        toolbar: [
+            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'
+        ],
+        image: {
+            toolbar: [
+                'imageTextAlternative', 'toggleImageCaption', '|',
+                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side',
+                'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', '|',
+                'resizeImage'
+            ],
+            styles: [
+                'alignLeft', 'alignCenter', 'alignRight'
+            ],
+            resizeOptions: [
+                {
+                    name: 'resizeImage:original',
+                    label: 'Original',
+                    value: null
+                },
+                {
+                    name: 'resizeImage:50',
+                    label: '50%',
+                    value: '50'
+                },
+                {
+                    name: 'resizeImage:75',
+                    label: '75%',
+                    value: '75'
                 }
-            }
-        });
-    </script>
+            ]
+        }
+    })
+    .then(editor => {
+        editorInstance = editor;
+        editor.setData(`
+            <h2>Breaking News: Technological Advancements Revolutionize Global Industries</h2>
+            <p><strong>Published:</strong> May 4, 2025 | <strong>By:</strong> Devsphere News Team</p>
+            <p>In a groundbreaking development, industries worldwide are witnessing rapid transformations powered by artificial intelligence, cloud computing, and automation. Experts say this marks a new era in productivity and innovation.</p>
+            <figure class="image image-style-alignRight">
+                <img src="https://picsum.photos/300/200?random=99" alt="AI in action">
+                <figcaption>AI systems are streamlining business operations.</figcaption>
+            </figure>
+            <p>The integration of smart systems has improved efficiency in sectors such as healthcare, finance, education, and manufacturing. Governments and organizations are investing heavily to stay ahead in this fast-evolving digital landscape.</p>
+            <p>Stay tuned with NepNews for more insights and expert analysis.</p>
+        `);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
+    const demoImages = [
+        "https://picsum.photos/100/100?random=1",
+        "https://picsum.photos/100/100?random=2",
+        "https://picsum.photos/100/100?random=3"
+    ];
+
+    function addImageToGallery(url) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.classList.add("image-preview");
+        img.setAttribute("draggable", true);
+        img.addEventListener("dragstart", e => {
+            e.dataTransfer.setData("imageUrl", url);
+        });
+        img.addEventListener("dblclick", () => {
+            editorInstance.model.change(writer => {
+                const imageElement = writer.createElement('image', { src: url });
+                editorInstance.model.insertContent(imageElement);
+            });
+        });
+        document.getElementById("imageGallery").appendChild(img);
+    }
+
+    demoImages.forEach(addImageToGallery);
+
+    document.getElementById("imageUpload").addEventListener("change", function(e) {
+        const files = e.target.files;
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                addImageToGallery(evt.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+        document.getElementById("uploadStatus").textContent = `${files.length} image(s) uploaded.`;
+        setTimeout(() => document.getElementById("uploadStatus").textContent = '', 3000);
+    });
+
+    function saveArticle() {
+        alert("Article saved!\n\n" + editorInstance.getData());
+    }
+
+    function previewArticle() {
+        document.getElementById("previewContent").innerHTML = editorInstance.getData();
+        document.getElementById("previewModal").style.display = 'block';
+    }
+
+    function closePreview() {
+        document.getElementById("previewModal").style.display = 'none';
+    }
+</script>
 </body>
 </html>
