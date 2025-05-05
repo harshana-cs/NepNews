@@ -215,8 +215,27 @@
     });
 
     function saveArticle() {
-        alert("Article saved!\n\n" + editorInstance.getData());
-    }
+  const articleData = {
+    title: "Sample Title",  // You can get this dynamically from an input
+    author: "Editor Name",  // Replace with dynamic author
+    content: editorInstance.getData(),
+    status: "Pending",
+    images: [], // Add uploaded image URLs later
+  };
+
+  fetch('http://localhost:3000/articles', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(articleData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Article saved successfully!");
+    console.log(data);
+  });
+}
 
     function previewArticle() {
         document.getElementById("previewContent").innerHTML = editorInstance.getData();
