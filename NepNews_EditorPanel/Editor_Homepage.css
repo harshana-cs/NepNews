@@ -5,6 +5,12 @@ body {
     margin: 0;
     padding: 0;
 }
+/* Container */
+.container {
+    width: 97%;
+    padding: 20px;
+    background-color: #FFFFFF;
+}
 
 /* Header */
 .header {
@@ -13,18 +19,20 @@ body {
     align-items: center;
     background-color: #111;
     color: white;
-    padding: 15px 20px;
+    padding: 10px 20px;
 }
 
-.logo-text {
+.logo-text {         
     background-color: darkred;
     padding: 8px 15px;
     border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .user-icon {
     cursor: pointer;
 }
+                  
 
 /* Layout */
 .main-container {
