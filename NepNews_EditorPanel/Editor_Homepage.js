@@ -1,98 +1,99 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const articleList = document.querySelector(".article-list");
+    const titleField = document.querySelector(".editor-section p:nth-of-type(1)");
+    const authorField = document.querySelector(".editor-section p:nth-of-type(2)");
+    const statusField = document.querySelector(".editor-section p:nth-of-type(3)");
+    const dateField = document.querySelector(".date");
+    const editorTextArea = document.querySelector(".editor-box textarea");
 
-    // Reject Dialog
+    let articles = [];
 
-document.addEventListener('DOMContentLoaded', function() {
+    // Fetch articles from backend
+    async function loadArticles() {
+        try {
+            const res = await fetch("http://localhost:5000/api/articles");
+            articles = await res.json();
 
+            articleList.innerHTML = ""; // Clear old list
+
+            articles.forEach((article, index) => {
+                const li = document.createElement("li");
+                li.className = article.status.toLowerCase();
+                li.innerHTML = `
+                    ${article.author}<br>
+                    <span>${article.title}</span><br>
+                    Status: ${article.status} 
+                    <button class="view-btn" data-index="${index}">View</button>
+                `;
+                articleList.appendChild(li);
+            });
+        } catch (error) {
+            console.error("Error fetching articles:", error);
+        }
+    }
+
+    // Display selected article in main panel
+    function showArticle(index) {
+        const article = articles[index];
+        if (!article) return;
+
+        titleField.innerHTML = `<strong>Title:</strong> ${article.title}`;
+        authorField.innerHTML = `<strong>Author:</strong> ${article.author}`;
+        statusField.innerHTML = `<strong>Status:</strong> ${article.status}`;
+        dateField.innerHTML = `Date: ${article.date}`;
+        editorTextArea.value = article.description;
+    }
+
+    // View button click handler
+    articleList.addEventListener('click', function (e) {
+        if (e.target.classList.contains('view-btn')) {
+            const index = e.target.getAttribute('data-index');
+            showArticle(index);
+        }
+    });
+
+    // Dialog Buttons
     const showDialogButton = document.getElementById('showDialog');
     const dialog = document.getElementById('dialog');
     const cancelButton = document.getElementById('cancel-btn');
     const rejectConfirmButton = document.getElementById('reject-confirm');
 
-
-    if (showDialogButton) {
-        showDialogButton.addEventListener('click', function () {
-            dialog.style.display = 'block';
-        });
-    }
-
-    if (cancelButton) {
-        cancelButton.addEventListener('click', function () {
-            dialog.style.display = 'none';
-        });
-    }
-
-    if (rejectConfirmButton) {
-        rejectConfirmButton.addEventListener('click', function () {
-            alert('Article rejected!'); 
-            dialog.style.display = 'none';
-        });
-    }
-
-    // Resend Dialog
-
-    showDialogButton.addEventListener('click', function() {
-        dialog.style.display = 'block';
-    });
-
-    cancelButton.addEventListener('click', function() {
-        dialog.style.display = 'none';
-    });
-
-    rejectConfirmButton.addEventListener('click', function() {
-        alert('Article rejected!'); // Replace with your desired action
-        dialog.style.display = 'none';
-    }); 
     const showResendDialogButton = document.getElementById('showResendDialog');
     const resendDialog = document.getElementById('resendDialog');
     const submitResendButton = document.getElementById('submitResend');
 
-    if (showResendDialogButton) {
-        showResendDialogButton.addEventListener('click', function () {
-            resendDialog.style.display = 'block';
-        });
-    }
-
-    if (submitResendButton) {
-        submitResendButton.addEventListener('click', function () {
-            alert('Resend submitted!');
-            resendDialog.style.display = 'none';
-        });
-    }
-
-    // Approve Dialog
     const approveButton = document.getElementById('approveButton');
     const approveDialog = document.getElementById('approveDialog');
     const approveOkButton = document.getElementById('approveOkButton');
 
-    if (approveButton) {
-        approveButton.addEventListener('click', function () {
-            approveDialog.style.display = 'block';
-        });
-    }
-
-    if (approveOkButton) {
-        approveOkButton.addEventListener('click', function () {
-            approveDialog.style.display = 'none';
-            alert('Article Approved!');
-        });
-    }
-
-    // Edit Button - Redirect to Editor Page
-    const editButton = document.querySelector('.edit_button');
-    if (editButton) {
-        editButton.addEventListener('click', function () {
-            window.location.href = "Artical_editor.html";
-        });
-    }
-
-    showResendDialogButton.addEventListener('click', function() {
-        resendDialog.style.display = 'block';
+    // Reject
+    showDialogButton?.addEventListener('click', () => dialog.style.display = 'block');
+    cancelButton?.addEventListener('click', () => dialog.style.display = 'none');
+    rejectConfirmButton?.addEventListener('click', () => {
+        alert('Article rejected!');
+        dialog.style.display = 'none';
     });
 
-    submitResendButton.addEventListener('click', function() {
-        // Handle submission logic here
-        alert('Resend submitted!'); // Replace with your actual submission logic
+    // Resend
+    showResendDialogButton?.addEventListener('click', () => resendDialog.style.display = 'block');
+    submitResendButton?.addEventListener('click', () => {
+        alert('Resend submitted!');
         resendDialog.style.display = 'none';
     });
 
+    // Approve
+    approveButton?.addEventListener('click', () => approveDialog.style.display = 'block');
+    approveOkButton?.addEventListener('click', () => {
+        approveDialog.style.display = 'none';
+        alert('Article Approved!');
+    });
+
+    // Edit
+    const editButton = document.querySelector('.edit_button');
+    editButton?.addEventListener('click', () => {
+        window.location.href = "Artical_editor.html";
+    });
+
+    // Load data on start
+    loadArticles();
 });
