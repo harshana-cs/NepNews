@@ -7,14 +7,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const editorTextArea = document.querySelector(".editor-box textarea");
 
     let articles = [];
+    let currentArticleId = null;
 
     // Fetch articles from backend
     async function loadArticles() {
         try {
             const res = await fetch("http://localhost:5000/api/articles");
+            if (!res.ok) throw new Error(`Error: ${res.status}`);
             articles = await res.json();
 
             articleList.innerHTML = ""; // Clear old list
+
+            if (articles.length === 0) {
+                articleList.innerHTML = "<p>No articles found.</p>";
+                return;
+            }
 
             articles.forEach((article, index) => {
                 const li = document.createElement("li");
@@ -22,13 +29,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 li.innerHTML = `
                     ${article.author}<br>
                     <span>${article.title}</span><br>
-                    Status: ${article.status} 
-                    <button class="view-btn" data-index="${index}">View</button>
+                    Status: ${article.status}
                 `;
+
+                // Only add "View" button if the article is pending
+                if (article.status.toLowerCase() === "pending") {
+                    li.innerHTML += `<button class="view-btn" data-index="${index}" data-id="${article.id}">View</button>`;
+                }
+
                 articleList.appendChild(li);
             });
         } catch (error) {
             console.error("Error fetching articles:", error);
+            articleList.innerHTML = "<p>Failed to load articles. Please try again later.</p>";
         }
     }
 
@@ -36,6 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function showArticle(index) {
         const article = articles[index];
         if (!article) return;
+
+        currentArticleId = article.id;
+        localStorage.setItem("currentArticleId", currentArticleId); // Store ID separately
+        localStorage.setItem("currentArticle", JSON.stringify(article)); // Store full article
 
         titleField.innerHTML = `<strong>Title:</strong> ${article.title}`;
         authorField.innerHTML = `<strong>Author:</strong> ${article.author}`;
@@ -49,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('view-btn')) {
             const index = e.target.getAttribute('data-index');
             showArticle(index);
+
+            e.target.style.display = 'none';
         }
     });
 
@@ -90,8 +109,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Edit
     const editButton = document.querySelector('.edit_button');
+
     editButton?.addEventListener('click', () => {
-        window.location.href = "Artical_editor.html";
+        currentArticleId = localStorage.getItem("currentArticleId"); // Retrieve from storage
+
+        if (currentArticleId) {
+            window.location.href = `Article_editor.html?id=${currentArticleId}`;
+        } else {
+            alert('Please select an article to edit first.');
+        }
     });
 
     // Load data on start

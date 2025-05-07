@@ -1,16 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const Article = require('../models/Article');
-
-// GET all articles
-router.get('/articles', async (req, res) => {
+app.get('/api/articles/:id', async (req, res) => {
     try {
-        const articles = await Article.find(); // Fetches from editor_articles collection
-        res.json(articles);
+        const article = await Article.findById(req.params.id);
+        if (!article) {
+            return res.status(404).json({ message: 'Article not found' });
+        }
+        res.json(article);
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching articles' });
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
-
-
-module.exports = router;

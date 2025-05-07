@@ -6,9 +6,11 @@
     <title>Editor Panel</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="Editor_Homepage.css">
+    <script>
+        
+    </script>
 </head>
 <body>
-
     <header class="header">
         <div class="logo">
             <h1 class="logo-text">NEPNEWS</h1>
@@ -20,7 +22,6 @@
     </header>
 
     <div class="main-container">
-
         <aside class="sidebar">
             <div class="search-bar">
                 <span class="material-icons">search</span> 
@@ -29,12 +30,38 @@
 
             <h3>Recent Articles</h3>
             <ul class="article-list">
-                <li class="pending">Olivia Bennet<br><span>Anautho anautho lagcha jindagi yo timi bina</span><br>Status: Pending</li>
-                <li class="rejected">Amelia Clarke<br><span>Random news idk what to write</span><br>Status: Rejected <button class="view-btn">View</button></li>
-                <li class="approved">Jacob Reynolds<br><span>Wallu dun dun dunali wapabul tob tobali</span><br>Status: Approved <button class="view-btn">View</button></li>
+                <li class="pending">
+                    Olivia Bennet<br>
+                    <span>Anautho anautho lagcha jindagi yo timi bina</span><br>
+                    Status: Pending
+                    <button class="view-btn" onclick="viewArticle(this)">View</button>
+                    <div class="article-details" style="display: none;">
+                        <p><strong>Full Article Details:</strong></p>
+                        <p>Here you can put the full article content or any other details you want to display.</p>
+                    </div>
+                </li>
+                <li class="rejected">
+                    Amelia Clarke<br>
+                    <span>Random news idk what to write</span><br>
+                    Status: Rejected
+                    <button class="view-btn" onclick="viewArticle(this)">View</button>
+                    <div class="article-details" style="display: none;">
+                        <p><strong>Full Article Details:</strong></p>
+                        <p>Additional information about this article can go here.</p>
+                    </div>
+                </li>
+                <li class="approved">
+                    Jacob Reynolds<br>
+                    <span>Wallu dun dun dunali wapabul tob tobali</span><br>
+                    Status: Approved
+                    <button class="view-btn" onclick="viewArticle(this)">View</button>
+                    <div class="article-details" style="display: none;">
+                        <p><strong>Full Article Details:</strong></p>
+                        <p>Details of the approved article can go here.</p>
+                    </div>
+                </li>
             </ul>
         </aside>
-
         <section class="editor-section">
             <h2>Review And Edit News Articles</h2>
             <p><strong>Title:</strong> Anautho anautho lagcha jindagi yo timi bina</p>
@@ -49,7 +76,7 @@
             <div class="editor-box">
                 <textarea> Lorem ipsum dolor sit amet, consectetur adipiscing elit...</textarea>
                 <div class="edit">
-                  <button class="edit_button" onclick="openeditor">Edit</button>
+                  <button class="edit_button">Edit</button>
                 </div>
             </div>
 

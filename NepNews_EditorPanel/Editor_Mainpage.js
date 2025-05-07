@@ -1,50 +1,51 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const pendingSection = document.querySelector(".section:nth-of-type(1)"); // Pending Articles section
-    const reviewedSection = document.querySelector(".section:nth-of-type(2)"); // Reviewed Articles section
+    const pendingSection = document.querySelector(".section:nth-of-type(1)");
+    const reviewedSection = document.querySelector(".section:nth-of-type(2)");
 
-    let articles = [];
-
-    // ✅ Ensure sections exist before modifying them
+    // Ensure sections exist
     if (!pendingSection || !reviewedSection) {
         console.error("❌ Error: Article sections missing in DOM.");
-        return; // Stop execution to prevent errors
+        return;
     }
 
-    // ✅ Fetch articles from backend
     async function loadArticles() {
         try {
-            const res = await fetch("http://localhost:3000/api/articles");
+            const res = await fetch("http://localhost:5000/api/articles");
             if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-
-            articles = await res.json();
-
+    
+            const articles = await res.json();
+    
             if (!articles.length) {
                 pendingSection.innerHTML += "<p>No pending articles</p>";
                 reviewedSection.innerHTML += "<p>No reviewed articles</p>";
                 return;
             }
-
-            // ✅ Clear previous articles
+    
             pendingSection.querySelectorAll(".article").forEach(el => el.remove());
             reviewedSection.querySelectorAll(".article").forEach(el => el.remove());
-
-            articles.forEach((article, index) => {
+    
+            articles.forEach(article => {
                 const articleDiv = document.createElement("div");
                 articleDiv.classList.add("article");
-                articleDiv.innerHTML = `
+    
+                // Build article details
+                let articleContent = `
                     <div>
                         <strong>${article.author}</strong><br>
                         ${article.title}<br>
                         <span class="status ${article.status.toLowerCase()}">Status: ${article.status}</span>
                     </div>
-                    <button class="view-button" data-index="${index}">View</button>
                 `;
-
+    
+                // Only add "View" button for pending articles
                 if (article.status.toLowerCase() === "pending") {
+                    articleContent += `<button class="view-button" data-id="${article._id}">View</button>`;
                     pendingSection.appendChild(articleDiv);
                 } else {
                     reviewedSection.appendChild(articleDiv);
                 }
+    
+                articleDiv.innerHTML = articleContent;
             });
         } catch (error) {
             console.error("❌ Error fetching articles:", error);
@@ -52,23 +53,17 @@ document.addEventListener("DOMContentLoaded", function () {
             reviewedSection.innerHTML += "<p>⚠️ Unable to fetch reviewed articles</p>";
         }
     }
-
-    // ✅ Navigate to `Editor_Homepage.html` when "View" is clicked
+    
+    // Handle "View" button
     document.addEventListener("click", function (e) {
         if (e.target.classList.contains("view-button")) {
-            const index = e.target.getAttribute("data-index");
-            const article = articles[index];
+            const articleId = e.target.getAttribute("data-id");
+            if (!articleId) return console.error("❌ No article ID found");
 
-            if (!article) {
-                console.error("❌ Error: Selected article not found.");
-                return;
-            }
-
-            localStorage.setItem("selectedArticle", JSON.stringify(article));
+            localStorage.setItem("selectedArticleId", articleId);
             window.location.href = "Editor_Homepage.html";
         }
     });
 
-    // ✅ Load articles when the page starts
     loadArticles();
 });
