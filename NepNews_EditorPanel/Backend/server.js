@@ -5,21 +5,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDB = require('./config/db');
 
 // Route files
-const articleRoutes = require('./routes/articleRoutes');
+const articleRoutes = require('./routes/articleroutes');
 const loginRoutes = require('./routes/loginRoutes');
 // const editorRoutes = require('./routes/editorRoutes');
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log('✅ Connected to MongoDB');
-}).catch((error) => {
-    console.error('❌ MongoDB connection error:', error);
-});
+// Connect to MongoDB
+connectDB();
 
 // Create Express app
 const app = express();
@@ -30,11 +24,11 @@ app.use(express.json());
 
 // Routes
 app.use('/api', articleRoutes);
-app.use('/api/login', loginRoutes);
-// app.use('/api/editor', editorRoutes);
+app.use('/api/auth', loginRoutes);
+app.use("/uploads", express.static("uploads"));
 
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
