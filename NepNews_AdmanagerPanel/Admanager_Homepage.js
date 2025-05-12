@@ -16,16 +16,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fileInput.addEventListener('change', function(event) {
                 if (event.target.files && event.target.files[0]) {
-                    selectedImageFile = event.target.files[0]; // Store image file globally
+                    const file = event.target.files[0];
+
+                    // Validate image file type
+                    if (!file.type.startsWith('image/')) {
+                        alert("Please select a valid image file.");
+                        return;
+                    }
+
+                    selectedImageFile = file; // Store image file globally
                     const reader = new FileReader();
-console.log("Selected Image File:", selectedImageFile);
+
                     reader.onload = function(e) {
                         uploadArea.style.backgroundImage = `url('${e.target.result}')`;
                         uploadArea.style.backgroundSize = 'cover';
                         uploadArea.style.backgroundPosition = 'center';
                     };
 
-                    reader.readAsDataURL(selectedImageFile);
+                    reader.readAsDataURL(file);
                 }
             });
         });
@@ -40,7 +48,7 @@ console.log("Selected Image File:", selectedImageFile);
             const durationInput = document.querySelector('input[name="duration"]:checked');
             const duration = durationInput ? durationInput.nextSibling.textContent.trim() : null;
 
-            if (!title || !websiteLink || !position || !placementPlan || !duration || !selectedImageFile) {
+            if (!title || !websiteLink || !position || !duration || !selectedImageFile) {
                 alert("Please fill in all fields and upload an image before proceeding.");
                 return;
             }
@@ -52,9 +60,6 @@ console.log("Selected Image File:", selectedImageFile);
             formData.append("placementPlan", placementPlan);
             formData.append("duration", parseInt(duration.split(' ')[0]));
             formData.append("image", selectedImageFile);
-            console.log("Form Data:", formData);
-           
-
 
             try {
                 const response = await fetch("http://localhost:5000/api/ads/upload", {
