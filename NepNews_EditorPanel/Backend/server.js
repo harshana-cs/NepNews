@@ -6,6 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const multer = require('multer');
 
 // Route files
 const articleRoutes = require('./routes/articleroutes');

@@ -43,12 +43,18 @@ document.addEventListener('DOMContentLoaded', function() {
         continueButton.addEventListener('click', async function() {
             const title = document.querySelector('.form-control[placeholder="Ad Title"]')?.value;
             const websiteLink = document.querySelector('.form-control[placeholder="Ad website link"]')?.value;
-            const position = document.querySelector('.form-control select')?.value;
-            const placementPlan = document.querySelector('.plan-box.selected .location-title')?.innerText;
+            const position = document.getElementById('positionSelect')?.value;
+            // const placementPlan = document.querySelector('.plan-box.selected .location-title')?.innerText;
             const durationInput = document.querySelector('input[name="duration"]:checked');
             const duration = durationInput ? durationInput.nextSibling.textContent.trim() : null;
+            console.log("Title:", title);
+console.log("Website Link:", websiteLink);
+console.log("Position:", position);
+// console.log("Placement Plan:", placementPlan);
+console.log("Duration:", duration);
+// console.log("Image File:", selectedImageFile);
 
-            if (!title || !websiteLink || !position || !duration || !selectedImageFile) {
+            if (!title || !websiteLink || !position || !duration|| !selectedImageFile) {
                 alert("Please fill in all fields and upload an image before proceeding.");
                 return;
             }
@@ -57,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append("title", title);
             formData.append("websiteLink", websiteLink);
             formData.append("position", position);
-            formData.append("placementPlan", placementPlan);
+            // formData.append("placementPlan", placementPlan);
             formData.append("duration", parseInt(duration.split(' ')[0]));
             formData.append("image", selectedImageFile);
 

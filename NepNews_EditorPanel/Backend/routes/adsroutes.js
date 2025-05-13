@@ -44,7 +44,6 @@ router.post("/upload", upload.single("image"), async (req, res) => {
             title,
             websiteLink,
             position,
-            placementPlan,
             duration: parseInt(duration),
             imageUrl
         });
