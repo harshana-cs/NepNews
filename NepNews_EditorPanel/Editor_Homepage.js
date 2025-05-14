@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const editorTextArea = document.getElementById("article-description");
 
     const approveBtnRight = document.getElementById("approveButton");
+    const userIcon = document.querySelector(".user-icon");
+  const modal = document.getElementById("profileModal");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const emailDisplay = document.getElementById("editorEmailDisplay");
+  const searchInput = document.getElementById("articleSearchInput");
 
     let articles = [];
     let currentArticleId = null;
@@ -140,4 +146,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     loadArticles();
+    // Get email from localStorage (set during login)
+  const editorEmail = localStorage.getItem("editorEmail") || "unknown@editor.com";
+  emailDisplay.textContent = editorEmail;
+
+  // Show modal when person icon is clicked
+  userIcon.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+  });
+
+  // Hide modal
+  cancelBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+  // Logout
+  logoutBtn.addEventListener("click", () => {
+    const confirmLogout = confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      localStorage.removeItem("editorEmail");
+      window.location.href = "login.html";
+    }
+  });
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+
+    const articleItems = document.querySelectorAll(".article-list li");
+    articleItems.forEach(li => {
+        const title = li.querySelector("span")?.textContent.toLowerCase() || "";
+        const author = li.querySelector("strong")?.textContent.toLowerCase() || "";
+
+        if (title.includes(query) || author.includes(query)) {
+            li.style.display = "";
+        } else {
+            li.style.display = "none";
+        }
+    });
+});
 });
