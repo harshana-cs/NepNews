@@ -35,10 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 li.setAttribute("data-id", article._id);
 
                 li.innerHTML = `
-                    <strong>${article.author}</strong><br>
-                    <span>${article.newsTitle}</span><br>
-                    Status: ${article.status}
-                `;
+    <strong>${article.author}</strong><br>
+    <span>${article.newsTitle}</span><br>
+    Status: <span class="status">${article.status}</span>
+`;
 
                 const viewBtn = document.createElement("button");
                 viewBtn.classList.add("view-btn");
@@ -168,15 +168,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "login.html";
     }
   });
-  searchInput.addEventListener("input", () => {
+ searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
 
     const articleItems = document.querySelectorAll(".article-list li");
     articleItems.forEach(li => {
         const title = li.querySelector("span")?.textContent.toLowerCase() || "";
         const author = li.querySelector("strong")?.textContent.toLowerCase() || "";
+        const status = li.querySelector(".status")?.textContent.toLowerCase() || "";
 
-        if (title.includes(query) || author.includes(query)) {
+        if (title.includes(query) || author.includes(query) || status.includes(query)) {
             li.style.display = "";
         } else {
             li.style.display = "none";
