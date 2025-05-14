@@ -12,6 +12,7 @@ const articleRoutes = require('./routes/articleroutes');
 const loginRoutes = require('./routes/loginRoutes');
 const adRoutes = require('./routes/adsroutes');
 
+
 // Connect to MongoDB
 connectDB();
 
@@ -33,6 +34,7 @@ app.use('/api', articleRoutes);
 app.use('/api/auth', loginRoutes);
 app.use('/api/ads', adRoutes);
 app.use("/uploads", express.static("uploads")); // Serve uploaded files
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

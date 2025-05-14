@@ -53,6 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 🔁 Forgot Password - Go to separate page
   forgotPasswordLink.addEventListener("click", function () {
-    window.location.href = "forgotpassword.html";
+    window.location.href = "Forgot_Password.html";
   });
 });
