@@ -1,4 +1,4 @@
-// / Load environment variables
+// Load environment variables
 require('dotenv').config();
 
 // Dependencies
@@ -6,7 +6,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const multer = require('multer');
 
 // Route files
 const articleRoutes = require('./routes/articleroutes');
@@ -20,15 +19,20 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: ["http://localhost:3000", "http://127.0.0.1:5500"], // Add both frontend URLs
+  methods: ["GET", "POST"],
+  credentials: true, // Allow cookies and credentials
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
 app.use('/api', articleRoutes);
 app.use('/api/auth', loginRoutes);
-app.use('/api/ads', adRoutes); 
-app.use("/uploads", express.static("uploads"));
-
+app.use('/api/ads', adRoutes);
+app.use("/uploads", express.static("uploads")); // Serve uploaded files
 
 // Start server
 const PORT = process.env.PORT || 5000;
